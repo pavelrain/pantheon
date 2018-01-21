@@ -19,6 +19,8 @@ namespace Mimir;
 
 require_once __DIR__ . '/../Controller.php';
 require_once __DIR__ . '/../helpers/Seating.php';
+require_once __DIR__ . '/../models/Event.php';
+require_once __DIR__ . '/../models/EventRatingTable.php';
 
 class SeatingController extends Controller
 {
@@ -31,6 +33,7 @@ class SeatingController extends Controller
      * @param int $seed
      * @throws InvalidParametersException
      * @throws AuthFailedException
+     * @throws \Exception
      * @return bool
      */
     public function makeShuffledSeating($eventId, $groupsCount, $seed)
@@ -61,6 +64,7 @@ class SeatingController extends Controller
      * @param int $eventId
      * @throws InvalidParametersException
      * @throws AuthFailedException
+     * @throws \Exception
      * @return bool
      */
     public function makeSwissSeating($eventId)
@@ -95,6 +99,7 @@ class SeatingController extends Controller
      * @throws DatabaseException
      * @throws InvalidParametersException
      * @throws InvalidUserException
+     * @throws \Exception
      * @return bool
      */
     public function makeManualSeating($eventId, $tablesDescription, $randomize = false)
@@ -128,6 +133,7 @@ class SeatingController extends Controller
      * @throws DatabaseException
      * @throws InvalidParametersException
      * @throws InvalidUserException
+     * @throws \Exception
      * @return bool
      */
     public function makeIntervalSeating($eventId, $step)
@@ -141,7 +147,7 @@ class SeatingController extends Controller
             throw new InvalidParametersException('Event id#' . $eventId . ' not found in DB');
         }
 
-        $currentRatingTable = (new EventModel($this->_db, $this->_config, $this->_meta))
+        $currentRatingTable = (new EventRatingTableModel($this->_db, $this->_config, $this->_meta))
             ->getRatingTable($event[0], 'rating', 'desc');
 
         $seating = Seating::makeIntervalSeating($currentRatingTable, $step, true);
@@ -163,6 +169,7 @@ class SeatingController extends Controller
      * Update event "seating ready" status.
      * This should be done before games start, or admin panel will show some inadequate data.
      * @param $eventId
+     * @throws \Exception
      * @return bool flag if games are started immediately
      */
     protected function _updateEventStatus($eventId)
@@ -181,6 +188,7 @@ class SeatingController extends Controller
      * @param $eventId
      * @throws AuthFailedException
      * @throws InvalidParametersException
+     * @throws \Exception
      */
     protected function _checkIfAllowed($eventId)
     {
@@ -198,6 +206,7 @@ class SeatingController extends Controller
      * @param $eventId
      * @return array
      * @throws InvalidParametersException
+     * @throws \Exception
      */
     protected function _getData($eventId)
     {
@@ -249,6 +258,7 @@ class SeatingController extends Controller
      * @param $tablesDescription
      * @param $randomize
      * @throws InvalidParametersException
+     * @throws \Exception
      * @return array
      */
     protected function _makeManualSeating($eventId, $tablesDescription, $randomize)
@@ -267,7 +277,7 @@ class SeatingController extends Controller
             throw new InvalidParametersException('Event id#' . $eventId . ' not found in DB');
         }
 
-        $currentRatingTable = (new EventModel($this->_db, $this->_config, $this->_meta))
+        $currentRatingTable = (new EventRatingTableModel($this->_db, $this->_config, $this->_meta))
             ->getRatingTable($event[0], 'rating', 'desc');
 
         $participatingPlayers = [];
