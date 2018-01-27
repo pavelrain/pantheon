@@ -565,7 +565,7 @@ Exceptions:
 ### updatePrescriptedEventConfig
 Parameters:
 * **$eventId** (_integer_) 
-* **$currentSessionIndex** (_integer_) 
+* **$nextSessionIndex** (_integer_) 
 * **$prescript** (_string_) 
 
 Returns: _mixed_ 

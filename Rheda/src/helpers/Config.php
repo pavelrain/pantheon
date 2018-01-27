@@ -46,6 +46,7 @@ class Config
     protected $_seriesLength = 0;
     protected $_gamesStatus = false;
     protected $_hideResults = false;
+    protected $_isPrescripted = false;
 
     public static function fromRaw($arr)
     {
@@ -363,5 +364,13 @@ class Config
     public function hideResults()
     {
         return $this->_hideResults;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPrescripted()
+    {
+        return $this->_isPrescripted;
     }
 }
