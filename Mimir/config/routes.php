@@ -84,4 +84,8 @@ return [
     'makeSwissSeating'    => ['SeatingController', 'makeSwissSeating'],
     'makeIntervalSeating' => ['SeatingController', 'makeIntervalSeating'],
     'makeManualSeating'   => ['SeatingController', 'makeManualSeating'],
+    'makePrescriptedSeating'       => ['SeatingController', 'makePrescriptedSeating'],
+    'getNextPrescriptedSeating'    => ['SeatingController', 'getNextSeatingForPrescriptedEvent'],
+    'getPrescriptedEventConfig'    => ['EventsController', 'getPrescriptedEventConfig'],
+    'updatePrescriptedEventConfig' => ['EventsController', 'updatePrescriptedEventConfig'],
 ];
